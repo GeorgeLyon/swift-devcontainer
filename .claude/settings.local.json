@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git -C /workspaces/Swift/swift-project/swift show 157eb5114f4 --stat)",
+      "Bash(utils/build-script:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(git -C /workspaces/Swift/swift-project/llvm-project status --short)",
+      "Bash(git -C /workspaces/Swift/swift-project/llvm-project checkout -- clang/lib/StaticAnalyzer/Checkers/ValistChecker.cpp flang/include/flang/Lower/Cuda.h)",
+      "Bash(find:*)",
+      "Bash(grep:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

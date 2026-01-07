@@ -1,0 +1,41 @@
+{
+  "name": "Swift",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+
+  "capAdd": [
+    "SYS_PTRACE"
+  ],
+  "securityOpt": [
+    "seccomp=unconfined"
+  ],
+
+  "mounts": [
+    /// Keep build products on a volume for performance and to separate host and guest build artifacts
+    "source=${localWorkspaceFolderBasename}-build,target=${containerWorkspaceFolder}/swift-project/build,type=volume",
+    /// Persist sccache artifacts across container rebuilds for faster compilation
+    "source=${localWorkspaceFolderBasename}-sccache,target=/root/.cache/sccache,type=volume",
+    /// Persist Claude Code configuration across container rebuilds
+    "source=claude-code-config,target=/root/.claude-code-config,type=volume"
+  ],
+
+  "remoteEnv": {
+    /// Useful for disambiguating devcontainers
+    "LOCAL_WORKSPACE_FOLDER": "${localWorkspaceFolder}"
+  },
+
+  "postCreateCommand": {
+    "Link custom claude config directory": "mkdir -p ~/.claude && rm -rf ~/.claude-code-config/ide && ln -s ~/.claude/ide ~/.claude-code-config/ide"
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Anthropic.claude-code"
+      ],
+      "settings": {
+      }
+    }
+  }
+}
